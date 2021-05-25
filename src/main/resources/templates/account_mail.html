@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Mailbox</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/public/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div id="container">
+    <h1 th:text="${username}+' Mailbox'">Mailbox</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Reverse Path</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mail : ${mails}">
+            <td th:text="${mail.date}">Date</td>
+            <td th:text="${mail.reversePath}">Reverse Path</td>
+            <td><a th:href="@{/mail/{accountId}/{mailId}(accountId=${accountId}, mailId=${mail.id})}" href="#">
+                <span>Download</span>
+            </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr/>
+    <a th:href="@{/account?id={id}(id=${accountId})}" href="#">Go back</a>
+
+</div>
+</body>
+</html>

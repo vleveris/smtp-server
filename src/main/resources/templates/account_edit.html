@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Edit Account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/public/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div id="container">
+    <h1>Account Info</h1>
+    <form action="#" th:action="@{/account/update}" th:object="${account}" method="post">
+        <input type="hidden" name="id" th:field="*{id}" th:value="*{id}" value="id"/>
+        <label for="domainName">Domain:</label>
+        <select name="domainName" id="domainName" required="required">
+            <option th:each="domain : ${domains}" th:value="${domain.name}" name="domainName" id="domainOption"
+                    value="name" th:text="${domain.name}" th:selected="${domain.name} == *{domain.name}">Option
+            </option>
+        </select><br/>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" th:field="*{username}" th:value="*{username}" value="username"
+               required="required"/><br/>
+        <label for="password">Password (leave empty for current):</label>
+        <input type="password" name="password" id="password" th:field="*{password}"/><br/>
+        <label>Role:</label>
+        <input type="radio" name="role" id="admin" value="0" th:checked="*{role} == 'ADMIN'"/>
+        <label for="admin">ADMIN</label>
+        <input type="radio" name="role" id="user" value="1" th:checked="*{role} == 'USER'"/>
+        <label for="user">USER</label>
+        <br/>
+        <button type="submit">Change</button>
+    </form>
+    <hr/>
+    <a th:href="@{/mail/{id}(id=${account.id})}"><span>View mail</span></a>
+    <a th:href="@{/account/delete?id={id}(id=${account.id})}">Remove account</a>
+
+</div>
+</body>
+</html>

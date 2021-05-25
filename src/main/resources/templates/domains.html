@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Domains</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/public/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div id="container">
+    <h1>List of domains</h1>
+    <ul>
+        <li th:each="domain : ${domains}">
+            <a th:href="@{/domain?id={id}(id=${domain.id})}" href="#">
+                <span th:text="${domain.name}">Name</span>
+
+            </a></li>
+    </ul>
+    <h2>New Domain</h2>
+    <form action="#" th:action="@{/domain}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" th:field="${newDomain.name}" required/><br/>
+        <button type="submit">Add</button>
+    </form>
+
+</div>
+</body>
+</html>

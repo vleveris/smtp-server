@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Error</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/public/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+<div id="container" class="error">
+    <h1>Error</h1>
+    <p th:if="${message.length() != null && message.length()>0}" th:text="${message}">404 Not Found</p>
+    <p th:if="${message == null || message.length() == 0}">404 Not Found</p>
+
+    <a th:if="${url != null && url.length()>0}" th:href="@{{url}(url=${url})}">Go back</a>
+    <a th:if="${url == null || url.length() ==0}" th:href="@{/}">Go back</a>
+
+</div>
+</body>
+</html>
+

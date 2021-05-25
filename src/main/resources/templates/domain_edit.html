@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Edit Domain</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/public/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div id="container">
+    <h1>Domain Info</h1>
+    <form action="#" th:action="@{/domain/update}" method="post">
+        <input type="hidden" name="id" th:field="${domain.id}" th:value="${domain.id}" value="id"/>
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" th:field="${domain.name}" th:value="${domain.name}" value="Name"
+               required/><br/>
+        <button type="submit">Change</button>
+    </form>
+    <h2>Accounts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.id}">ID</td>
+            <td><a th:href="@{/account?id={id}(id=${account.id})}" href="#">
+                <span th:text="${account.username}">Username</span>
+            </a></td>
+            <td th:text="${account.role}">Role</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr/>
+    <h2>New Account</h2>
+    <form action="#" th:action="@{/account}" th:object="${newAccount}" method="post">
+        <input type="hidden" name="domain.id" th:field="*{domain.id}" th:value="${domain.id}"/>
+        <input type="hidden" name="domain.name" th:field="*{domain.name}" th:value="${domain.name}"/>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" th:field="*{username}" th:value="*{username}" value="username"
+               required/><br/>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" th:field="*{password}" required/><br/>
+        <label>Role:</label>
+        <input type="radio" name="role" id="admin" value="0" required="required"/>
+        <label for="admin">ADMIN</label>
+        <input type="radio" name="role" id="user" value="1" required="required"/>
+        <label for="user">USER</label>
+        <br/>
+        <button type="submit">Add</button>
+    </form>
+    <hr/>
+    <a th:href="@{/domain/delete?id={id}(id=${domain.id})}" href="#">Remove domain</a>
+
+</div>
+</body>
+</html>
